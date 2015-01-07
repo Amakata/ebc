@@ -1,0 +1,225 @@
+book "furigana" do
+  title "ふりがな サンプル"
+
+  md_file "furigana"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "11pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+  end
+end
+
+book "image" do
+  title "画像 サンプル"
+
+  md_file "image"
+
+  img_file "sample1.jpg"
+  img_file "sample2.jpg"
+  img_file "sample3.jpg"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "11pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+  end
+end
+
+book "tatenakayoko" do
+  title "縦中横 サンプル"
+
+  md_file "tatenakayoko"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "11pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+  end
+end
+
+book "newpage" do
+  title "改ページ サンプル"
+
+  md_file "newpage"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "11pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+  end
+end
+
+book "newline" do
+  title "改行 サンプル"
+
+  md_file "newline"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "11pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+  end
+end
+
+book "hyoushi" do
+  md_file "hyoushi"
+  img_file "hyoushi.png"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "10pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+   
+    hyoushi_image_page "h01" do
+	  file "hyoushi.png"
+	  topoffset "-0.8mm"
+	  leftoffset "2.1mm"
+	end
+	urahyoushi_image_page "h02" do#
+	  file "hyoushi.png"
+	  topoffset "-0.8mm"
+	  leftoffset "2.1mm"
+	end
+  end
+end
+
+book "title" do
+  title "タイトル サンプル"
+  author "天方 貴久"
+  abstract "テストのアブストラクトです。長い文のアブストラクトだとどういう表示になるのかをテストしています。これくらいで大丈夫かな。テストテスト"
+
+  md_file "title"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "10pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+   	
+	hyoushi_inner_title_page "title"
+  end
+end
+
+book "emptypage" do
+
+  md_file "emptypage"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "10pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+   	
+    hyoushi_empty_page "h01" do
+	  no_page_number
+	end
+    hyoushi_empty_page "h02" do
+	end
+  end
+end
+
+book "toc" do
+
+  md_file "toc"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "10pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+    postchaptername "話"
+  end
+end
+
+book "column" do
+
+  md_file "column"
+  img_file "sample1.jpg"
+  img_file "sample2.jpg"
+  img_file "sample3.jpg"
+  
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "10pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+   end
+
+  latex_converter "latex" do
+	documentclass "ujbook"
+    classoption "10pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+    output "column-yoko"
+  end
+end
+
+book "section" do
+
+  md_file "section"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "10pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+   end
+end
+
+book "hyoushi" do
+  title "表紙 サンプル"
+  author "天方 貴久"
+  abstract "テストのアブストラクトです。長い文のアブストラクトだとどういう表示になるのかをテストしています。これくらいで大丈夫かな。テストテスト"
+
+  md_file "hyoushi"
+  img_file "hyoushi.png"
+
+  latex_converter "latex" do
+	documentclass "utbook"
+    classoption "10pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+    postchaptername "話"
+	
+    output "hyoushi.pdf"
+    hyoushi_image_page "p01" do
+	  file "hyoushi.png"
+	  topoffset "-0.8mm"
+	  leftoffset "2.1mm"
+	end
+    hyoushi_empty_page "h02" do
+	  no_page_number
+	end
+
+#	hyoushi_inner_title_page "p03" do
+#	end
+#    urahyoushi_empty_page "h03" do
+#	  no_page_number
+#	end
+#	urahyoushi_image_page "h04" do#
+#	  file "urahyoushi.png"
+#g	end
+  end
+end
+

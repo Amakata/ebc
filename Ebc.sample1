@@ -1,0 +1,36 @@
+book "book1" do
+# インポートするMarkdownファイル
+  md_files "."
+
+# 変換ルール
+  latex_converter "latex" do
+    theme "default-tate"
+	documentclass "utbook"
+    classoption "11pt"
+	classoption "twocolumn" 
+	classoption "twoside"
+	classoption "a5j"
+	filter "pandoc-filter.rb"
+    template "template.tex"
+    output "book1.pdf"
+  end
+
+  epub_converter "epub" do 
+    theme "default-tate"
+
+    output "book1.html"
+  end
+end
+
+book "book2" do
+# インポートするMarkdownファイル
+  md_file "xxx/xxx"
+
+# 変換ルール
+  latex_converter "latex" do
+    theme "default-tate"
+ 	documentclass "utbook"
+    template "template.tex"
+    output "book2.pdf"
+  end
+end

@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+
+require 'rainbow/ext/string'
+require "open3"
+require 'optparse'
+require 'fileutils'
+require 'pathname'
+require 'shellwords'
+
+option={}
+opt = OptionParser.new do |opt|
+ opt.version ="0.0.1"
+ opt.summary_indent = ' ' * 4
+ opt.banner = 'Usage: ebc [cmd] [options]'
+ opt.on_head('[cmd]',
+             '    init    Ebcファイルの生成',
+             '    build   ビルド',
+             '    clean   テンポラリフォルダと出力フォルダをクリア')
+ opt.on('-v', '出力を詳細にする') { |v| option[:v] = v }
+ opt.on('--book=VALUE', 'ビルドするbookを指定する') { |v| option[:book] = v }
+ opt.on('--pandoc-json-output', 'ビルド時にpandocのjsonを出力') { |v| option['pandoc-json-output'] = v }
+ opt.permute!(ARGV)
+end
+
+curDir = Dir::getwd
+
+unless File.file?("#{curDir}/Ebc") || ARGV[0] == "init"
+ puts "File does not exist. #{curDir}/Ebc".color :red
+ exit
+end
+
+$:.unshift "#{curDir}/lib"
+$:.unshift File.dirname(__FILE__) + "/../lib"
+
+require "dsl/book"
+require "dsl/src_file"
+require "dsl/converter"
+require "dsl/page"
+
+if File.file?("#{curDir}/Ebc") && ARGV[0] != "init"
+ load "#{curDir}/Ebc"
+end
+
+if ARGV.length != 1
+ puts opt.help
+ exit
+elsif ARGV[0] == "build"
+ puts "build...".color :green
+ BookManager.instance.build option
+elsif ARGV[0] == "clean"
+ puts "clean...".color :green
+ FileUtils.remove_entry_secure("#{curDir}/tmp")
+ Dir::mkdir("#{curDir}/tmp")
+ FileUtils.remove_entry_secure("#{curDir}/output")
+ Dir::mkdir("#{curDir}/output")
+elsif ARGV[0] == "init"
+ if File.file?("#{curDir}/Ebc")
+  puts "File exist. #{curDir}/Ebc".color :red
+  exit
+ end
+ puts "init...".color :green
+ FileUtils.cp_r(Dir.glob(File.dirname(__FILE__) + "/../skel/*"),"./")
+else
+ puts opt.help
+ exit
+end
+
