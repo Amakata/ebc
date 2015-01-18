@@ -10,6 +10,9 @@ book "furigana" do
 	classoption "twoside"
 	classoption "a5j"
   end
+
+  epub_converter "epub" do
+  end
 end
 
 book "image" do
@@ -28,6 +31,9 @@ book "image" do
 	classoption "twoside"
 	classoption "a5j"
   end
+
+  epub_converter "epub" do
+  end
 end
 
 book "tatenakayoko" do
@@ -41,6 +47,9 @@ book "tatenakayoko" do
 	classoption "twocolumn" 
 	classoption "twoside"
 	classoption "a5j"
+  end
+
+  epub_converter "epub" do
   end
 end
 
@@ -56,6 +65,9 @@ book "newpage" do
 	classoption "twoside"
 	classoption "a5j"
   end
+
+  epub_converter "epub" do
+  end
 end
 
 book "newline" do
@@ -69,6 +81,9 @@ book "newline" do
 	classoption "twocolumn" 
 	classoption "twoside"
 	classoption "a5j"
+  end
+
+  epub_converter "epub" do
   end
 end
 
@@ -94,6 +109,9 @@ book "hyoushi" do
 	  leftoffset "2.1mm"
 	end
   end
+
+epub_converter "epub" do
+  end
 end
 
 book "title" do
@@ -111,6 +129,9 @@ book "title" do
 	classoption "a5j"
    	
 	hyoushi_inner_title_page "title"
+  end
+
+  epub_converter "epub" do
   end
 end
 
@@ -131,6 +152,9 @@ book "emptypage" do
     hyoushi_empty_page "h02" do
 	end
   end
+
+  epub_converter "epub" do
+  end
 end
 
 book "toc" do
@@ -144,6 +168,9 @@ book "toc" do
 	classoption "twoside"
 	classoption "a5j"
     postchaptername "話"
+  end
+
+  epub_converter "epub" do
   end
 end
 
@@ -171,6 +198,9 @@ book "column" do
 	classoption "a5j"
     output "column-yoko"
   end
+
+  epub_converter "epub" do
+  end
 end
 
 book "section" do
@@ -184,6 +214,9 @@ book "section" do
 	classoption "twoside"
 	classoption "a5j"
    end
+
+  epub_converter "epub" do
+  end
 end
 
 book "hyoushi" do
@@ -220,6 +253,9 @@ book "hyoushi" do
 #	urahyoushi_image_page "h04" do#
 #	  file "urahyoushi.png"
 #g	end
+  end
+
+  epub_converter "epub" do
   end
 end
 

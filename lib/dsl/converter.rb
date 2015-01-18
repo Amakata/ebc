@@ -69,7 +69,108 @@ class CallBook
  end
 
  class CallEpubConverter < CallConverter
+  def initialize name, book
+   @vars = []
+   @meta = []
+   @template = "template.html"
+   @filter = "pandoc-filter.rb"
+   @page_progression_direction = "rtl"
+
+   if book.title != ""
+    @vars << ["title", book.title]
+   end
+   if book.author != ""
+    @vars << ["author", book.author]
+   end
+
+   super name, book
+  end
+
+  def page_progression_direction param
+   @page_progression_direction = param
+  end
+
+  def template param
+   @template = param
+  end
+
+  def filter param
+   @filter = param
+  end
+
+  def meta_option
+   result = []
+   @meta.concat([["page-progression-direction", @page_progression_direction]]).each { |m|
+    result << "-M"
+    result << "#{m[0]}=#{m[1]}"
+   }
+   result
+  end
+
+  def vars_option
+   result = []
+   @vars.concat([[:book_name, @book.name]]).each { |v|
+    result << "-V"
+    result << "#{v[0]}=#{v[1]}"
+   }
+   result
+  end
+
+  def template_option
+   if @template
+    "--template=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@template}"
+   else
+    ""
+   end
+  end
+
+  def filter_option
+   if @filter
+    "--filter=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@filter}"
+   else
+    ""
+   end
+  end
+
+  def epub_path
+   output_path(@book.name) + '.epub'
+  end
+
+  def json_path
+   tmp_path(@book.name) + '.json'
+  end
+
+  def _build_resource files, option
+   copy_to_tmp files
+  end
+
+  def build_resource option
+   _build_resource @book.resource_files, option
+  end
+
+  def pandoc_cmd
+   "pandoc"
+  end
+
+  def pandoc_option option
+   [
+    "--epub-chapter-level=1",
+    "--toc",
+    "-f",
+    "markdown_phpextra+hard_line_breaks+raw_html",
+    "-s",
+    template_option,
+    filter_option
+   ]
+  end
+
   def build option
+   if option['pandoc-json-output']
+    cmd_exec pandoc_cmd, ["-o", json_path, "-t", "json"].concat(pandoc_option option).concat(vars_option).concat(meta_option).concat(@book.src_files.map{ |f| f.full_path }), option
+   end
+   cmd_exec pandoc_cmd, ["-o", epub_path, "-t", "epub3"].concat(pandoc_option option).concat(vars_option).concat(meta_option).concat(@book.src_files.map{ |f| f.full_path }), option
+
+   build_resource option
   end
  end
 
