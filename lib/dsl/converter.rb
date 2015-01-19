@@ -74,6 +74,7 @@ class CallBook
    @meta = []
    @template = "template.html"
    @filter = "pandoc-filter.rb"
+   @stylesheet = "epub.css"
    @page_progression_direction = "rtl"
 
    if book.title != ""
@@ -98,6 +99,10 @@ class CallBook
    @filter = param
   end
 
+  def stylesheet param
+   @stylesheet = param
+  end
+
   def meta_option
    result = []
    @meta.concat([["page-progression-direction", @page_progression_direction]]).each { |m|
@@ -117,19 +122,15 @@ class CallBook
   end
 
   def template_option
-   if @template
-    "--template=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@template}"
-   else
-    ""
-   end
+   "--template=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@template}"
   end
 
   def filter_option
-   if @filter
-    "--filter=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@filter}"
-   else
-    ""
-   end
+   "--filter=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@filter}"
+  end
+
+  def stylesheet_option
+   "--epub-stylesheet=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@stylesheet}"
   end
 
   def epub_path
@@ -160,15 +161,16 @@ class CallBook
     "markdown_phpextra+hard_line_breaks+raw_html",
     "-s",
     template_option,
-    filter_option
+    filter_option,
+    stylesheet_option
    ]
   end
 
   def build option
    if option['pandoc-json-output']
-    cmd_exec pandoc_cmd, ["-o", json_path, "-t", "json"].concat(pandoc_option option).concat(vars_option).concat(meta_option).concat(@book.src_files.map{ |f| f.full_path }), option
+    cmd_exec "cd #{tmp_path ""};"+ pandoc_cmd, ["-o", json_path, "-t", "json"].concat(pandoc_option option).concat(vars_option).concat(meta_option).concat(@book.src_files.map{ |f| f.full_path }), option
    end
-   cmd_exec pandoc_cmd, ["-o", epub_path, "-t", "epub3"].concat(pandoc_option option).concat(vars_option).concat(meta_option).concat(@book.src_files.map{ |f| f.full_path }), option
+   cmd_exec "cd #{tmp_path ""};"+ pandoc_cmd, ["-o", epub_path, "-t", "epub3"].concat(pandoc_option option).concat(vars_option).concat(meta_option).concat(@book.src_files.map{ |f| f.full_path }), option
 
    build_resource option
   end
@@ -228,19 +230,11 @@ class CallBook
   end
 
   def template_option
-   if @template
-    "--template=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@template}"
-   else
-    ""
-   end
+   "--template=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@template}"
   end
 
   def filter_option
-   if @filter
-    "--filter=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@filter}"
-   else
-    ""
-   end
+   "--filter=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@filter}"
   end
 
   def tex_path
