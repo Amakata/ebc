@@ -3,7 +3,7 @@
 Markdownから、PDFやEPUBを生成するためのフレームワークのプロトタイプです。
 
 Vagrantなどのように、Ruby DSLによって1ファイルで生成のためのルールを設定できるようにし、
-PDFやEPUBの生成を自動化します。(いまのところPDFのみ生成できます)
+PDFやEPUB3の生成を自動化します。
 
 このプロトタイプの目的は
 
@@ -105,6 +105,12 @@ $ ebc book --book=sample
 ```
 
 Ebc設定ファイルのbook sampleのみビルドします。
+
+```
+$ ebc book --conv=epub
+```
+
+Ebc設定ファイルのconverter epubのみビルドします。
 
 ```
 $ ebc book -v
