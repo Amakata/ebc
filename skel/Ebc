@@ -63,6 +63,6 @@ book "sample" do
   end
   
   epub_converter "epub" do
-    cover_image "sample1.png"
+    cover_image "sample1.jpg"
   end
 end

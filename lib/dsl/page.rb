@@ -79,7 +79,7 @@ EOS
 \\end{center}
 \\vspace*{1.5cm}
 \\begin{center}
-{\\Large #{book.author}}
+{\\Large #{book.creators.map { |c| c.name }.join " "}}
 \\end{center}
 \\vspace*{1.5cm}
 \\begin{center}
