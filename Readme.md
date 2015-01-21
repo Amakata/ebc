@@ -25,13 +25,13 @@ https://rvm.io/
 
 ## Tex Live
 
-acTex.pkgをダウンロードしてインストール
+### MacTex.pkgをダウンロードしてインストール
 
 http://tug.org/mactex/
 
 参考) http://tandoori.hatenablog.com/entry/20130802/1375451791
 
-Tex Live Utility.appを起動して、アップデート
+### Tex Live Utility.appを起動して、アップデート
 
 ```
 Yosemiteを使う場合は、まずTex Live Utilityを更新すること、メニューの「Tex Liveユーティリティ > 更新があるか確認」で更新すること。

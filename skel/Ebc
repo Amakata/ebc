@@ -29,37 +29,37 @@ book "sample" do
   # img_file "urahyoushi.png"
 
   latex_converter "latex" do
-	documentclass "utbook"
+    documentclass "utbook"
     classoption "11pt"
-	classoption "twocolumn" 
-	classoption "twoside"
-	classoption "a5j"
-	# prepartname "第"
-	# postpartname "部"
-	# prechaptername "第"
+    classoption "twocolumn" 
+    classoption "twoside"
+    classoption "a5j"
+    # prepartname "第"
+    # postpartname "部"
+    # prechaptername "第"
     # postchaptername "章"
     # output "sample"
     # theme "default"
-	# template "template.tex"
-	# filter "pandoc-filter.rb"
+    # template "template.tex"
+    # filter "pandoc-filter.rb"
 
     hyoushi_image_page "h01" do
 	  file "sample1.jpg"
 	  topoffset "-0.8mm"
 	  leftoffset "2.1mm"
-	end
+    end
     hyoushi_empty_page "h02" do
 	  no_page_number
-	end
-	hyoushi_inner_title_page "title"
+    end
+    hyoushi_inner_title_page "title"
     urahyoushi_empty_page "h03" do
 	  no_page_number
-	end
-	urahyoushi_image_page "h04" do#
+    end
+    urahyoushi_image_page "h04" do#
 	  file "sample1.jpg"
 	  topoffset "-0.8mm"
 	  leftoffset "-5mm"
-	end
+    end
   end
   
   epub_converter "epub" do
