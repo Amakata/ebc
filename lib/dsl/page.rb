@@ -83,7 +83,7 @@ EOS
 \\end{center}
 \\vspace*{1.5cm}
 \\begin{center}
-#{book.abstract}
+#{book.description}
 \\end{center}
 \\end{minipage}
 \\if@restonecol\\twocolumn\\else\\newpage\\fi

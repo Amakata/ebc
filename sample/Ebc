@@ -110,14 +110,15 @@ book "hyoushi" do
 	end
   end
 
-epub_converter "epub" do
+  epub_converter "epub" do
+    cover_image "hyoushi.png"
   end
 end
 
 book "title" do
   title "タイトル サンプル"
-  author "天方 貴久"
-  abstract "テストのアブストラクトです。長い文のアブストラクトだとどういう表示になるのかをテストしています。これくらいで大丈夫かな。テストテスト"
+  creator "天方 貴久"
+  description "テストのアブストラクトです。長い文のアブストラクトだとどういう表示になるのかをテストしています。これくらいで大丈夫かな。テストテスト"
 
   md_file "title"
 
@@ -219,43 +220,41 @@ book "section" do
   end
 end
 
-book "hyoushi" do
-  title "表紙 サンプル"
-  author "天方 貴久"
-  abstract "テストのアブストラクトです。長い文のアブストラクトだとどういう表示になるのかをテストしています。これくらいで大丈夫かな。テストテスト"
+book "epub-test" do
+  identifier "urn:uuid:c12fdf58-6f2b-4a77-bd58-186b3192b52a" do
+    scheme "UUID"
+  end
+  title "EPUB サンプル"
+  subtitle "サブタイトル"
+  short "短縮タイトル"
+  collection "コレクションタイトル"
+  edition "エディションタイトル"
+  extended "エクステンドタイトル"
+
+  publisher "天方出版社"
+
+  creator "天方 貴久" do
+    role "aut"
+  end
+  creator "天方 貴久" do
+    role "edt"
+  end
+  contributor "天方 貴久" do
+    role "ill"
+  end
+  contributor "天方 貴久" do
+    role "pht"
+  end
+  description "テストのアブストラクトです。長い文のアブストラクトだとどういう表示になるのかをテストしています。これくらいで大丈夫かな。テストテスト"
+  rights "コピーライト"
+  publication Time.now.to_s
+  modification Time.now.to_s
 
   md_file "hyoushi"
   img_file "hyoushi.png"
 
-  latex_converter "latex" do
-	documentclass "utbook"
-    classoption "10pt"
-	classoption "twocolumn" 
-	classoption "twoside"
-	classoption "a5j"
-    postchaptername "話"
-	
-    output "hyoushi.pdf"
-    hyoushi_image_page "p01" do
-	  file "hyoushi.png"
-	  topoffset "-0.8mm"
-	  leftoffset "2.1mm"
-	end
-    hyoushi_empty_page "h02" do
-	  no_page_number
-	end
-
-#	hyoushi_inner_title_page "p03" do
-#	end
-#    urahyoushi_empty_page "h03" do
-#	  no_page_number
-#	end
-#	urahyoushi_image_page "h04" do#
-#	  file "urahyoushi.png"
-#g	end
-  end
-
   epub_converter "epub" do
+    cover_image "hyoushi.png"
   end
 end
 

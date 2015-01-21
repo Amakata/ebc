@@ -75,15 +75,13 @@ class CallBook
    @template = "template.html"
    @filter = "pandoc-filter.rb"
    @stylesheet = "epub.css"
+   @metadata = "metadata.dat"
    @page_progression_direction = "rtl"
+   @cover_image = nil
 
    if book.title != ""
     @vars << ["title", book.title]
    end
-   if book.author != ""
-    @vars << ["author", book.author]
-   end
-
    super name, book
   end
 
@@ -101,6 +99,14 @@ class CallBook
 
   def stylesheet param
    @stylesheet = param
+  end
+
+  def metadata param
+   @metadata = param
+  end
+
+  def cover_image param
+   @cover_image = param
   end
 
   def meta_option
@@ -133,6 +139,18 @@ class CallBook
    "--epub-stylesheet=#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@stylesheet}"
   end
 
+  def metadata_option
+   "--epub-metadata=" + metadata_path
+  end
+
+  def metadata_path
+   tmp_path("#{@book.name}.#{@metadata}")
+  end
+
+  def metadata_template_path
+   "#{Dir::getwd}/theme/#{@theme}/#{@name}/#{@metadata}.erb"
+  end
+
   def epub_path
    output_path(@book.name) + '.epub'
   end
@@ -145,16 +163,12 @@ class CallBook
    copy_to_tmp files
   end
 
-  def build_resource option
-   _build_resource @book.resource_files, option
-  end
-
   def pandoc_cmd
    "pandoc"
   end
 
   def pandoc_option option
-   [
+   option = [
     "--epub-chapter-level=1",
     "--toc",
     "-f",
@@ -162,17 +176,31 @@ class CallBook
     "-s",
     template_option,
     filter_option,
-    stylesheet_option
+    stylesheet_option,
+    metadata_option
    ]
+   if @cover_image
+    option << "--epub-cover-image=" + src_path(@cover_image) 
+   end
+   option
+  end
+
+  def build_epub_metadata option
+   f = open metadata_template_path
+   erb = ERB.new f.read, nil, "-"
+   f.close
+   f = open metadata_path, "w"
+     f.write erb.result(binding)
+   f.close
   end
 
   def build option
+   build_epub_metadata option
+
    if option['pandoc-json-output']
     cmd_exec "cd #{tmp_path ""};"+ pandoc_cmd, ["-o", json_path, "-t", "json"].concat(pandoc_option option).concat(vars_option).concat(meta_option).concat(@book.src_files.map{ |f| f.full_path }), option
    end
    cmd_exec "cd #{tmp_path ""};"+ pandoc_cmd, ["-o", epub_path, "-t", "epub3"].concat(pandoc_option option).concat(vars_option).concat(meta_option).concat(@book.src_files.map{ |f| f.full_path }), option
-
-   build_resource option
   end
  end
 

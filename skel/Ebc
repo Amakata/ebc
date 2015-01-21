@@ -1,7 +1,25 @@
 book "sample" do
+  # identifier "urn:uuid:c12fdf58-6f2b-4a77-bd58-186b3192b52a" do
+    # scheme "UUID"
+  # end
   title "サンプル"
-  author "執筆者の名前"
-  abstract "テストのアブストラクトです。長い文のアブストラクトだとどういう表示になるのかをテストしています。"
+  # subtitle "サブタイトル"
+  # short "短縮タイトル"
+  # collection "コレクションタイトル"
+  # edition "エディションタイトル"
+  # extended "エクステンドタイトル"
+
+  # publisher "○○出版社"
+  creator "電書 電子" do
+  #  role "aut"
+  end
+  # contributor "コントリビュータの名前" do
+  #  role "ill"
+  # end
+  description "テストのアブストラクトです。長い文のアブストラクトだとどういう表示になるのかをテストしています。"
+  # rights "権利表記"
+  # publication "2015/01/22 18:10:00"
+  # modification Time.now.to_s
 
   md_file "sample"
   # md_files "."
@@ -42,5 +60,9 @@ book "sample" do
 	  topoffset "-0.8mm"
 	  leftoffset "-5mm"
 	end
+  end
+  
+  epub_converter "epub" do
+    cover_image "sample1.png"
   end
 end

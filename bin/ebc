@@ -8,6 +8,8 @@ require 'optparse'
 require 'fileutils'
 require 'pathname'
 require 'shellwords'
+require 'erb'
+require 'time'
 
 option={}
 opt = OptionParser.new do |opt|
@@ -20,6 +22,7 @@ opt = OptionParser.new do |opt|
              '    clean   テンポラリフォルダと出力フォルダをクリア')
  opt.on('-v', '出力を詳細にする') { |v| option[:v] = v }
  opt.on('--book=VALUE', 'ビルドするbookを指定する') { |v| option[:book] = v }
+ opt.on('--conv=VALUE', 'ビルドするconverterを指定する') { |v| option[:converter] = v }
  opt.on('--pandoc-json-output', 'ビルド時にpandocのjsonを出力') { |v| option['pandoc-json-output'] = v }
  opt.permute!(ARGV)
 end
